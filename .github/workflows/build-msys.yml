@@ -1,0 +1,49 @@
+name: MSYS2
+
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Init MSYS2-System
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MSYS2
+          install: base-devel base
+          update: true
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Run Configuration
+        run: |
+          ./bootstrap
+          mkdir -p build
+          cd build
+          ../configure -C
+      - name: Build
+        if: ${{ success() }}
+        run: make V=0 || make
+        working-directory: build
+      - name: Run Testsuite
+        if: ${{ success() }}
+        run: make -j20 check V=0 || make check
+        working-directory: build
+      - name: Generate Artifacts upon Failure
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: failure
+          path: |
+            build/config.*
+            build/t/**
