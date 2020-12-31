@@ -18,7 +18,6 @@ jobs:
       - name: Init MSYS2-System
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MSYS2
           install: base-devel base
           update: true
       - name: Checkout
