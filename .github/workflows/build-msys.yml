@@ -32,7 +32,7 @@ jobs:
           ../configure -C
       - name: Build
         if: ${{ success() }}
-        run: make V=0 || make
+        run: make
         working-directory: build
       - name: Run Testsuite
         if: ${{ success() }}
