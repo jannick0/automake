@@ -34,11 +34,11 @@ jobs:
           ../configure -C
       - name: Build
         if: ${{ success() }}
-        run: make
+        run: make V=1
         working-directory: build
       - name: Run Testsuite
         if: ${{ success() }}
-        run: make -j20 check V=0 || make check
+        run: make -j20 check || make check
         working-directory: build
       - name: Generate Artifacts upon Failure
         if: ${{ failure() }}
