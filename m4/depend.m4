@@ -38,7 +38,7 @@ m4_if([$1], [CC],   [depcc="$CC"   am_compiler_list=],
                     [depcc="$$1"   am_compiler_list=])
 
 AC_CACHE_CHECK([dependency style of $depcc],
-               [am_cv_$1_dependencies_compiler_type],
+               [am_cv_[]$1[]_dependencies_compiler_type],
 [if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
@@ -59,7 +59,7 @@ AC_CACHE_CHECK([dependency style of $depcc],
   # directory.
   mkdir sub
 
-  am_cv_$1_dependencies_compiler_type=none
+  am_cv_[]$1[]_dependencies_compiler_type=none
   if test "$am_compiler_list" = ""; then
      am_compiler_list=`sed -n ['s/^#*\([a-zA-Z0-9]*\))$/\1/p'] < ./depcomp`
   fi
@@ -137,7 +137,7 @@ AC_CACHE_CHECK([dependency style of $depcc],
       #   icc: Command line remark: option '-MP' not supported
       if (grep 'ignoring option' conftest.err ||
           grep 'not supported' conftest.err) >/dev/null 2>&1; then :; else
-        am_cv_$1_dependencies_compiler_type=$depmode
+        am_cv_[]$1[]_dependencies_compiler_type=$depmode
         break
       fi
     fi
@@ -146,13 +146,13 @@ AC_CACHE_CHECK([dependency style of $depcc],
   cd ..
   rm -rf conftest.dir
 else
-  am_cv_$1_dependencies_compiler_type=none
+  am_cv_[]$1[]_dependencies_compiler_type=none
 fi
 ])
-AC_SUBST([$1DEPMODE], [depmode=$am_cv_$1_dependencies_compiler_type])
-AM_CONDITIONAL([am__fastdep$1], [
+AC_SUBST($1[DEPMODE], [depmode=$am_cv_[]$1[]_dependencies_compiler_type])
+AM_CONDITIONAL([am__fastdep]$1[], [
   test "x$enable_dependency_tracking" != xno \
-  && test "$am_cv_$1_dependencies_compiler_type" = gcc3])
+  && test "$am_cv_[]$1[]_dependencies_compiler_type" = gcc3])
 ])
 
 
